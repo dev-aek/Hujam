@@ -13,7 +13,7 @@ public class RadialMenu : MonoBehaviour
     bool isRadialMenuActive;
 
     public Text HighlightedItemName;
-
+    public SonarScript sonar;
     public string[] InventoryItemNames;
     void Start()
     {
@@ -25,7 +25,9 @@ public class RadialMenu : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Tab))
         {
-            
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+
             isRadialMenuActive = !isRadialMenuActive;
             if (isRadialMenuActive)
             {
@@ -51,10 +53,20 @@ public class RadialMenu : MonoBehaviour
                 {
                     selectObject.eulerAngles = new Vector3(0, 0, i);
                     HighlightedItemName.text = InventoryItemNames[currentItem];
+
+                    if (Input.GetMouseButtonDown(0))
+                    {
+                        sonar.ActivatedSonar(currentItem);
+                        isRadialMenuActive = false;
+                        RadialMenuRoot.SetActive(false);
+                        Cursor.lockState = CursorLockMode.Locked;
+                        Cursor.visible = false;
+                    }
                 }
                 currentItem++;
 
             }
         }
+
     }
 }

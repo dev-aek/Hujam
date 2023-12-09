@@ -21,18 +21,23 @@ public class SonarScript : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.F))
         {
-            sonar.Play();
-            this.transform.DOScale(new Vector3(scaleValue, scaleValue, scaleValue), waitTime/3).OnComplete(() => this.transform.localScale = Vector3.zero);
+
         }
     }
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Interact")
         {
-            Debug.Log("Dedective");
+            //Debug.Log("Dedective");
             other.GetComponent<InteractiveObject>().AppareObject(targetId, waitTime);
         }
     }
 
+    public void ActivatedSonar(int id)
+    {
+        targetId = id;
+        sonar.Play();
+        this.transform.DOScale(new Vector3(scaleValue, scaleValue, scaleValue), waitTime / 3).OnComplete(() => this.transform.localScale = Vector3.zero);
+    }
 
 }
