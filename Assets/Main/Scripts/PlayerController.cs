@@ -18,6 +18,8 @@ public class PlayerController : MonoBehaviour
     public LayerMask layer;
     public float groudRadius;
 
+    public ParticleSystem dust;
+
     private void Awake()
     {
        // rgb = GetComponent<Rigidbody>();
@@ -49,12 +51,18 @@ public class PlayerController : MonoBehaviour
 
             Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
             controller.Move(moveDir.normalized * speed * Time.deltaTime);
+            dust.Play();
+        }
+        else
+        {
+            dust.Stop();
         }
 
         //jumping
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
             velocity.y = Mathf.Sqrt((jumpHeight * 10) * -2f * gravity);
+            dust.Stop();
         }
 
         if (velocity.y > -20)
