@@ -60,13 +60,13 @@ public class PlayerController : MonoBehaviour
             dust.Stop();
         }
 
-        if (Input.GetKeyDown(KeyCode.W ))
+        if (Input.GetKeyDown(KeyCode.LeftShift))
         {
-            transform.Rotate(20, 0, 0);
+            speed *=2;
         }
-        if (Input.GetKeyUp(KeyCode.W))
+        if (Input.GetKeyUp(KeyCode.LeftShift))
         {
-            transform.Rotate(-10, 0, 0);
+            speed /= 2;
         }
 
         //jumping
