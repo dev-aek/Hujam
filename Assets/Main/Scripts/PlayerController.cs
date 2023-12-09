@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class PlayerController : MonoBehaviour
 {
@@ -19,7 +20,7 @@ public class PlayerController : MonoBehaviour
     public float groudRadius;
 
     public ParticleSystem dust;
-
+    public GameObject prefabObject;
     private void Awake()
     {
        // rgb = GetComponent<Rigidbody>();
@@ -49,13 +50,23 @@ public class PlayerController : MonoBehaviour
             float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
             transform.rotation = Quaternion.Euler(0f, angle, 0f);
 
-            Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
+            Vector3 moveDir = Quaternion.Euler(10f, targetAngle, 0f) * Vector3.forward;
             controller.Move(moveDir.normalized * speed * Time.deltaTime);
             dust.Play();
+            
         }
         else
         {
             dust.Stop();
+        }
+
+        if (Input.GetKeyDown(KeyCode.W ))
+        {
+            transform.Rotate(20, 0, 0);
+        }
+        if (Input.GetKeyUp(KeyCode.W))
+        {
+            transform.Rotate(-10, 0, 0);
         }
 
         //jumping
@@ -70,5 +81,7 @@ public class PlayerController : MonoBehaviour
             velocity.y += (gravity * 10) * Time.deltaTime;
         }
         controller.Move(velocity * Time.deltaTime);
+
+
     }
 }
