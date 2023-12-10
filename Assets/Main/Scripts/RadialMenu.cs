@@ -56,7 +56,7 @@ public class RadialMenu : MonoBehaviour
 
                     if (Input.GetMouseButtonDown(0))
                     {
-                        sonar.ActivatedSonar(currentItem);
+                        sonar.ActivatedSonar(currentItem+1);
                         isRadialMenuActive = false;
                         RadialMenuRoot.SetActive(false);
                         Cursor.lockState = CursorLockMode.Locked;
