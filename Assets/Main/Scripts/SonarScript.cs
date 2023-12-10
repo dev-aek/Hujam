@@ -37,7 +37,8 @@ public class SonarScript : MonoBehaviour
     {
         targetId = id;
         sonar.Play();
-        this.transform.DOScale(new Vector3(scaleValue, scaleValue, scaleValue), waitTime / 3).OnComplete(() => this.transform.localScale = Vector3.zero);
+        Vector3 oldScale = transform.localScale; 
+        this.transform.DOScale(new Vector3(scaleValue, scaleValue, scaleValue), waitTime / 3).OnComplete(() => this.transform.localScale = oldScale);
     }
 
 }
