@@ -9,11 +9,14 @@ public class UIManager : MonoBehaviour
 {
     public static UIManager Instance { get; private set; }
     public int questValue;
-    public TextMeshProUGUI[] questTexts;
+    public TextMeshProUGUI questDesc;
+    public TextMeshProUGUI questInfo;
     public Quest[] quests;
-    public Toggle[] m_toggle;
     public GameObject qPanel;
-    
+    private RadialMenu radialMenu;
+    public GameObject[] xToggles;
+    public GameObject[] xInteractivePanels;
+
     private void Awake()
     {
         // Bir �rnek varsa ve ben de�ilse, yoket.
@@ -24,85 +27,71 @@ public class UIManager : MonoBehaviour
             return;
         }
         Instance = this;
-        DontDestroyOnLoad(this.gameObject);
+        // DontDestroyOnLoad(this.gameObject);
+        radialMenu = GetComponent<RadialMenu>();
     }
     private void Start()
     {
-        LoadQuest();
+        StartCoroutine(LoadQuest());
     }
 
-    public void LoadQuest()
-    {
-        for (int i = 0; i < questTexts.Length; i++)
-        {
-            questTexts[i].color = Color.white;
-            if (i == 1)
-            {
-                questTexts[i].text = quests[questValue].questStrings[i] + " ( " + quests[questValue].questCurrentProgress.ToString() + "/" + quests[questValue].questAim.ToString() + ")";
-            }
-            else
-            {
-                questTexts[i].text = quests[questValue].questStrings[i];
-            }
-        }
-
-        StartCoroutine(NewQuest());
-    }
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.U))
-        {
-            Deneme1();
-        }
-        if (Input.GetKeyDown(KeyCode.I))
-        {
-            Deneme2();
-        }
-    }
-
-    public void Deneme1()
-    {
-        quests[questValue].isQuestOk1 = true;
-        CheckQuest();
-    }
-
-    public void Deneme2()
-    {
-        quests[questValue].isQuestOk2 = true;
-        CheckQuest();
 
     }
+
     public void CheckQuest()
     {
-        //quests[questValue].CheckAim();
-        if (quests[questValue].isQuestOk1)
+        int a=0;
+        for (int i = 0; i < quests.Length; i++)
         {
-            m_toggle[0].transform.Find("Checkmark").gameObject.active = true;
-            questTexts[1].color = Color.gray;
-            m_toggle[1].gameObject.active = true;
-
-            if (quests[questValue].isQuestOk2)
+            quests[i].CheckAim();
+            if (quests[i].isQuestOk1)
             {
-                m_toggle[1].gameObject.active = false;
-                questValue += 1;
-                m_toggle[0].transform.Find("Checkmark").gameObject.active = false ;
-                LoadQuest();
+                a++;
+            }
+            if (!quests[i].isInfo && quests[i].questCurrentProgress == 1 && i <3)
+            {
+                xToggles[i].SetActive(false);
+                quests[i].toggle.gameObject.SetActive(true);
+                quests[i].isInfo = true;
+                radialMenu.isItemActive[i] = true;
+                StartCoroutine(LoadInfo());
             }
         }
-
-
-
+        if (a >= 3)
+        {
+            quests[3].toggle.gameObject.SetActive(true);
+            if (!quests[3].isInfo)
+            {
+                StartCoroutine(LoadInfo());
+                radialMenu.isItemActive[3] = true;
+                quests[3].isInfo = true;
+            }
+        }
+        if (a >= 4) quests[4].toggle.gameObject.SetActive(true);
+        
     }
-    public IEnumerator NewQuest()
+    public IEnumerator LoadQuest()
     {
-        qPanel.active = false;
-        questTexts[3].gameObject.active = true;
+        qPanel.SetActive(false);
+        for (int i = 0; i < quests.Length; i++)
+        {
+            quests[i].SetQuest();
+        }
+        questDesc.gameObject.SetActive(true);
         yield return new WaitForSeconds(10f);
         Debug.Log("as");
-        qPanel.active = true;
-        questTexts[3].gameObject.active = false;
+        qPanel.SetActive(true);
+        questDesc.gameObject.SetActive(false);
+    }
 
-
+    public IEnumerator LoadInfo()
+    {
+        
+        questInfo.gameObject.SetActive(true);
+        yield return new WaitForSeconds(3f);
+        questInfo.gameObject.SetActive(false);
     }
 
 }
@@ -111,16 +100,35 @@ public class UIManager : MonoBehaviour
 [System.Serializable]
 public class Quest
 {
-    public string[] questStrings;
+    public TextMeshProUGUI questText;
+    public Toggle toggle;
 
+    public string questStrings;
     public bool isQuestOk1;
-    public bool isQuestOk2;
     public int questCurrentProgress;
     public int questAim;
+    public bool isInfo;
+
 
     public void CheckAim()
     {
-        isQuestOk1 = questCurrentProgress >= questAim;
+        questText.text = questStrings + " ( " + questCurrentProgress.ToString() + "/" + questAim.ToString() + " )";
+
+        if (questCurrentProgress >= questAim)
+        {
+            toggle.transform.Find("Checkmark").gameObject.active = true;
+            questText.color = Color.gray;
+            isQuestOk1 = true;
+
+        }
+
     }
+
+    public void SetQuest()
+    {
+        questText.text = questStrings + " ( " + questCurrentProgress.ToString() + "/" + questAim.ToString() + " )";
+
+    }
+
 
 }

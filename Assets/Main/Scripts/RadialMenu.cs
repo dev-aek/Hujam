@@ -13,8 +13,10 @@ public class RadialMenu : MonoBehaviour
     bool isRadialMenuActive;
 
     public Text HighlightedItemName;
-
+    public SonarScript sonar;
     public string[] InventoryItemNames;
+    public bool[] isItemActive;
+    public GameObject[] images;
     void Start()
     {
         isRadialMenuActive = false;
@@ -25,7 +27,17 @@ public class RadialMenu : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Tab))
         {
-            
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+
+            for (int i = 0; i < isItemActive.Length; i++)
+            {
+                if (isItemActive[i])
+                {
+                    images[i].SetActive(true);
+                }
+            }
+
             isRadialMenuActive = !isRadialMenuActive;
             if (isRadialMenuActive)
             {
@@ -50,11 +62,37 @@ public class RadialMenu : MonoBehaviour
                 if (angle >= i && angle < i + 90)
                 {
                     selectObject.eulerAngles = new Vector3(0, 0, i);
-                    HighlightedItemName.text = InventoryItemNames[currentItem];
+                    if (isItemActive[currentItem])
+                    {
+                        HighlightedItemName.text = InventoryItemNames[currentItem];
+
+                        if (Input.GetMouseButtonDown(0))
+                        {
+                            sonar.ActivatedSonar(currentItem);
+                            isRadialMenuActive = false;
+                            RadialMenuRoot.SetActive(false);
+                            Cursor.lockState = CursorLockMode.Locked;
+                            Cursor.visible = false;
+                        }
+                    }
+                    else
+                    {
+                        HighlightedItemName.text = "???";
+                        if (Input.GetMouseButtonDown(0))
+                        {
+                            isRadialMenuActive = false;
+                            RadialMenuRoot.SetActive(false);
+                            Cursor.lockState = CursorLockMode.Locked;
+                            Cursor.visible = false;
+                        }
+                    }
+
+
                 }
                 currentItem++;
 
             }
         }
+
     }
 }
