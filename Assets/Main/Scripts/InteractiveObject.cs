@@ -23,6 +23,7 @@ public class InteractiveObject : MonoBehaviour
 
     public IEnumerator AppareObjectWait( )
     {
+        Debug.Log("Dedective");
         sonar.Stop();
         sonar.Play();
         sonarAuido.Play();

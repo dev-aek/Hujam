@@ -84,18 +84,5 @@ public class PlayerController : MonoBehaviour
 
 
     }
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Final"))
-        {
-            if (UIManager.Instance.isGameOver)
-            {
-                UIManager.Instance.quests[4].questCurrentProgress++;
-                UIManager.Instance.CheckQuest();
-                UIManager.Instance.SetGameFinal();
-            }
 
-            
-        }
-    }
 }
