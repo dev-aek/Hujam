@@ -6,10 +6,14 @@ using UnityEngine.EventSystems;
 public class SlotScript : MonoBehaviour, IDropHandler
 {
     public int id;
+    public MiniPuzzleControler mpCont;
 
-    public Transform transform;
-    
-    
+
+    private void Update()
+    {
+
+    }
+
     public void OnDrop(PointerEventData eventData)
     {
        // Debug.Log("sdas");
@@ -23,9 +27,10 @@ public class SlotScript : MonoBehaviour, IDropHandler
             {
                 eventData.pointerDrag.GetComponent<RectTransform>().anchoredPosition = this.GetComponent<RectTransform>().anchoredPosition;
 
-               
-                    
-      
+                mpCont.sayac++;
+
+
+
             }
            
                 
