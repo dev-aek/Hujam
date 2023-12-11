@@ -9,6 +9,9 @@ public class InteractiveObject : MonoBehaviour
     public float waitTime = 10f;
     public GameObject info;
     public int uiId;
+    public AudioSource sonarAuido;
+    public AudioSource pickUpAuido;
+
     public void AppareObject(int id, float waitT)
     {
         waitTime = waitT;
@@ -22,6 +25,7 @@ public class InteractiveObject : MonoBehaviour
     {
         sonar.Stop();
         sonar.Play();
+        sonarAuido.Play();
         yield return new WaitForSeconds(waitTime);
         sonar.Stop();
 
@@ -52,6 +56,7 @@ public class InteractiveObject : MonoBehaviour
             {
                 UIManager.Instance.quests[objectId].questCurrentProgress++;
                 UIManager.Instance.CheckQuest();
+                pickUpAuido.Play();
                 
                 Destroy(gameObject);
             }

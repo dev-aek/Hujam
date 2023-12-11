@@ -16,6 +16,9 @@ public class UIManager : MonoBehaviour
     private RadialMenu radialMenu;
     public GameObject[] xToggles;
     public GameObject[] xInteractivePanels;
+    public GameObject finalRock;
+    public bool isGameOver;
+
 
     private void Awake()
     {
@@ -67,9 +70,14 @@ public class UIManager : MonoBehaviour
                 StartCoroutine(LoadInfo());
                 radialMenu.isItemActive[3] = true;
                 quests[3].isInfo = true;
+                finalRock.SetActive(false);
             }
         }
-        if (a >= 4) quests[4].toggle.gameObject.SetActive(true);
+        if (a >= 4)
+        {
+            quests[4].toggle.gameObject.SetActive(true);
+            isGameOver = true;
+        }
         
     }
     public IEnumerator LoadQuest()
@@ -92,6 +100,11 @@ public class UIManager : MonoBehaviour
         questInfo.gameObject.SetActive(true);
         yield return new WaitForSeconds(3f);
         questInfo.gameObject.SetActive(false);
+    }
+
+    public void SetGameFinal()
+    {
+        Debug.Log("Oyun Bitti");
     }
 
 }

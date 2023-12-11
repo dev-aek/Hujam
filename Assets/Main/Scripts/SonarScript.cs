@@ -9,6 +9,7 @@ public class SonarScript : MonoBehaviour
     public int targetId;
     public float scaleValue = 150f;
     public float waitTime = 10f;
+    public AudioSource sonarAuido;
 
     // Start is called before the first frame update
     void Start()
@@ -39,6 +40,7 @@ public class SonarScript : MonoBehaviour
         sonar.Play();
         Vector3 oldScale = transform.localScale; 
         this.transform.DOScale(new Vector3(scaleValue, scaleValue, scaleValue), waitTime / 3).OnComplete(() => this.transform.localScale = oldScale);
+        sonarAuido.Play();
     }
 
 }
