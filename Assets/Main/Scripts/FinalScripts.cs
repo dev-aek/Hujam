@@ -13,6 +13,7 @@ public class FinalScripts : MonoBehaviour
     public AudioSource music;
     public GameObject[] cams;
     public GameObject[] cine2;
+    public GameObject puzzle;
 
 
 
@@ -39,7 +40,10 @@ public class FinalScripts : MonoBehaviour
             {
                 UIManager.Instance.quests[4].questCurrentProgress++;
                 UIManager.Instance.CheckQuest();
-                SetGameFinal();
+                puzzle.SetActive(true);
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+                //cams[0].SetActive(false);
             }
 
 
@@ -88,6 +92,8 @@ public class FinalScripts : MonoBehaviour
             cine2[i].SetActive(true);
         }
         cine2[4].SetActive(false);
+        cine2[5].SetActive(false);
+
         yield return new WaitForSeconds(7f);
         timeSSpeed = 10f;
         cine2[0].SetActive(false);
@@ -103,7 +109,14 @@ public class FinalScripts : MonoBehaviour
         yield return new WaitForSeconds(9f);
         cine2[0].SetActive(true);
         cine2[4].SetActive(true);
+        StartCoroutine(Cine4());
     }
 
+    public IEnumerator Cine4()
+    {
 
+        yield return new WaitForSeconds(9f);
+        cine2[5].SetActive(true);
+        cine2[4].SetActive(false);
+    }
 }

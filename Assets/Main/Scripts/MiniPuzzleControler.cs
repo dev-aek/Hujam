@@ -7,9 +7,11 @@ public class MiniPuzzleControler : MonoBehaviour
     public int sayac = 0;
     public GameObject mpCont;
     bool isOver;
+    public FinalScripts finalScripts;
+    public GameObject parent;
     void Start()
     {
-
+        
     }
 
     // Update is called once per frame
@@ -25,5 +27,7 @@ public class MiniPuzzleControler : MonoBehaviour
     IEnumerator Example()
     {
         yield return new WaitForSeconds(2f);
+        parent.SetActive(false);
+        finalScripts.SetGameFinal();
     }
 }

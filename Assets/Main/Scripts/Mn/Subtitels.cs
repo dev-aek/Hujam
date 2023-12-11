@@ -10,6 +10,8 @@ public class Subtitels : MonoBehaviour
     public string[] subtiteles;
     int vlu = 0;
     public AudioSource auido;
+    public AudioSource auido2;
+    bool isAudioOut;
 
     private void Awake()
     {
@@ -23,11 +25,15 @@ public class Subtitels : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (isAudioOut)
+        {
+            auido2.volume -= Time.deltaTime/25;
+        }
     }
 
     public IEnumerator TvOld()
     {
+        isAudioOut = true;
         if (vlu < subtiteles.Length)
         {
             tmPro.text = subtiteles[vlu];

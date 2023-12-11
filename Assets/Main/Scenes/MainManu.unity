@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 7046.925, g: 2470.9934, b: 977.65344, a: 1}
+  m_IndirectSpecularColor: {r: 7046.921, g: 2471.0002, b: 977.6593, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -7307,6 +7307,7 @@ MonoBehaviour:
   - "Yaklas\u0131k 100 y\u0131ld\u0131r "
   - "O-VI kes\u0131f robotlar\u0131 dunyada yasam bulgular\u0131 ar\u0131yor."
   auido: {fileID: 538894963}
+  auido2: {fileID: 930582970}
 --- !u!114 &538894965
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24678,6 +24679,8 @@ MonoBehaviour:
   - {fileID: 1536946542}
   - {fileID: 928243672}
   xInteractivePanels: []
+  finalRock: {fileID: 0}
+  isGameOver: 0
 --- !u!114 &1726060933
 MonoBehaviour:
   m_ObjectHideFlags: 0

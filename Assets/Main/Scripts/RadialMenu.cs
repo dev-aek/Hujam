@@ -27,8 +27,7 @@ public class RadialMenu : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Tab))
         {
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
+
 
             for (int i = 0; i < isItemActive.Length; i++)
             {
@@ -42,10 +41,14 @@ public class RadialMenu : MonoBehaviour
             if (isRadialMenuActive)
             {
                 RadialMenuRoot.SetActive(true);
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
             }
             else
             {
                 RadialMenuRoot.SetActive(false);
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
             }
             
         }
