@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 public class Subtitels : MonoBehaviour
@@ -41,6 +42,7 @@ public class Subtitels : MonoBehaviour
         else
         {
             Debug.Log("Yeni sahne");
+            SceneManager.LoadScene("Presents");
         }
     }
 
