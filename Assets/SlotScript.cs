@@ -6,10 +6,13 @@ using UnityEngine.EventSystems;
 public class SlotScript : MonoBehaviour, IDropHandler
 {
     public int id;
+
+    public Transform transform;
     
     
     public void OnDrop(PointerEventData eventData)
     {
+       // Debug.Log("sdas");
         
         if(eventData.pointerDrag != null)
         {
@@ -19,21 +22,26 @@ public class SlotScript : MonoBehaviour, IDropHandler
             if (eventData.pointerDrag.GetComponent<DragAndDrop>().id == id)
             {
                 eventData.pointerDrag.GetComponent<RectTransform>().anchoredPosition = this.GetComponent<RectTransform>().anchoredPosition;
+
+               
                     
-       
+      
             }
+           
                 
             else
             {
                 eventData.pointerDrag.GetComponent<DragAndDrop>().ResetPosition();
             }
             
-        
-            
-            
+   
         }
-        
+       
+   
 
-        
-    }
+
+
+}
+   
+
 }
